@@ -1,0 +1,15 @@
+name: github-action-checker
+on:
+  issues:
+    types:
+      - closed
+jobs:
+  issue2md:
+    runs-on: ubuntu-latest
+    name: Convert closed issue to markdown with test action
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Verbose
+        run:
+          echo "${{ github.event }}" | python -m json.tool
