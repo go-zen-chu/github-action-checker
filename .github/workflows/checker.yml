@@ -7,11 +7,15 @@ jobs:
   issue2md:
     runs-on: ubuntu-latest
     name: Convert closed issue to markdown with test action
+    if: |
+      ${{
+        contains(github.event.issue.labels.*.name, 'test') && github.event.issue.state_reason == "completed" 
+      }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Verbose
-        run:
+        run: |
           cat << EOF > github-event.json
           ${{ toJSON(github.event) }}
           EOF
